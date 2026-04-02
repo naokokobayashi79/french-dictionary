@@ -71,10 +71,15 @@ export default function SearchBar({
   }, [query, onWiktionaryResult]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !showSuggestions && query.trim()) {
-      // No local suggestions visible — trigger Wiktionary search
+    if (e.key === "Enter") {
       e.preventDefault();
-      handleWiktionarySearch();
+      if (showSuggestions && selectedIndex >= 0 && results[selectedIndex]) {
+        // Arrow key で候補を選んでいる場合 → その候補を選択
+        handleSelect(results[selectedIndex].entry);
+      } else if (query.trim()) {
+        // それ以外 → Wiktionary 検索（ローカルにもフォールバック）
+        handleWiktionarySearch();
+      }
       return;
     }
 
@@ -92,14 +97,6 @@ export default function SearchBar({
         setSelectedIndex((prev) =>
           prev > 0 ? prev - 1 : results.length - 1
         );
-        break;
-      case "Enter":
-        e.preventDefault();
-        if (selectedIndex >= 0 && results[selectedIndex]) {
-          handleSelect(results[selectedIndex].entry);
-        } else if (results.length > 0) {
-          handleSelect(results[0].entry);
-        }
         break;
       case "Escape":
         setShowSuggestions(false);
