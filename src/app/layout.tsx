@@ -12,9 +12,37 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://french-dictionary-nine.vercel.app";
+
 export const metadata: Metadata = {
   title: "フランス語学習辞書",
-  description: "フランス語の単語や表現を検索して、意味・文法・例文・発音まで学べる学習用辞書アプリ",
+  description:
+    "フランス語の単語や表現を検索して、意味・文法・例文・発音まで学べる学習用辞書アプリ",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    title: "フランス語学習辞書 | EN FRANÇAIS?",
+    description:
+      "単語を検索するだけで、意味・発音・文法・例文・活用表をまとめて確認。Wiktionary連携でほぼ全単語に対応。",
+    url: siteUrl,
+    siteName: "フランス語学習辞書",
+    images: [
+      {
+        url: "/ogp.png",
+        width: 1200,
+        height: 630,
+        alt: "EN FRANÇAIS? - フランス語学習辞書",
+      },
+    ],
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "フランス語学習辞書 | EN FRANÇAIS?",
+    description:
+      "単語を検索するだけで、意味・発音・文法・例文・活用表をまとめて確認。Wiktionary連携でほぼ全単語に対応。",
+    images: ["/ogp.png"],
+  },
 };
 
 export default function RootLayout({
